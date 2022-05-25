@@ -13,3 +13,6 @@ stdin.on("data", (chunk) => {
   writeTextStream.write(chunk);
 });
 process.on("exit", () => stdout.write("Bye bye!\n"));
+process.on("SIGINT", () => {
+  process.exit();
+});
