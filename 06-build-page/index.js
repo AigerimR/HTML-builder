@@ -154,7 +154,8 @@ function createIndexFile() {
 const componentsDir = path.join(__dirname, "components");
 let htmlFiles = [];
 
-(async () => {
+async function readHtmlFiles() {
+  // (async () => {
   try {
     const allComponents = await readdir(componentsDir, {
       withFileTypes: true,
@@ -173,7 +174,8 @@ let htmlFiles = [];
   } catch (err) {
     console.error(err);
   }
-})();
+}
+// )();
 
 async function replaceComponents() {
   try {
@@ -182,6 +184,7 @@ async function replaceComponents() {
       if (err) throw err;
       htmlInitial = data;
     });
+    await readHtmlFiles();
     for (const file of htmlFiles) {
       let name = file.split(".")[0];
       await readFile(path.join(componentsDir, file), "utf-8", (err, data) => {
