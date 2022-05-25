@@ -72,7 +72,8 @@ const newStylesFileDir = path.join(newProjectDir, "style.css");
 let cssFiles = [];
 
 //read css files
-(async () => {
+async function readCssFiles() {
+  // (async () => {
   try {
     const allStyle = await readdir(oldStylesDir, {
       withFileTypes: true,
@@ -91,7 +92,7 @@ let cssFiles = [];
   } catch (err) {
     console.error(err);
   }
-})();
+}
 
 //check if style.css file exists and delete if needed
 access(newStylesFileDir, (err) => {
@@ -112,6 +113,7 @@ async function createBundle() {
     console.log("style.css is created");
   });
   // console.log(cssFiles);
+  await readCssFiles();
   for (const file of cssFiles) {
     let pathToFile = path.join(oldStylesDir, file);
     readFile(pathToFile, "utf-8", (err, data) => {
